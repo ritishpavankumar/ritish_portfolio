@@ -6,7 +6,7 @@
     <title>Ritish | AI-Assisted Product Builder</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,54 +15,103 @@
         }
 
         :root {
-            --bg: #fafafa;
-            --text: #1a1a1a;
-            --text-muted: #666;
-            --border: #e5e5e5;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --text-muted: #a1a1a1;
+            --text-dim: #6b6b6b;
+            --border: rgba(255,255,255,0.08);
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --card-bg: rgba(255,255,255,0.03);
+            --card-border: rgba(255,255,255,0.06);
+            --gradient-1: #1e1e2e;
+            --gradient-2: #0f0f1a;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
+            background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 50%, #12121f 100%);
             color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.08), transparent),
+                radial-gradient(ellipse 50% 30% at 20% 80%, rgba(236, 72, 153, 0.05), transparent);
         }
 
         .container {
-            max-width: 720px;
+            max-width: 680px;
             margin: 0 auto;
             padding: 0 24px;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
         header {
-            padding: 80px 0 60px;
+            padding: 120px 0 80px;
             text-align: center;
+            position: relative;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .fade-up:nth-child(1) { animation-delay: 0.1s; }
+        .fade-up:nth-child(2) { animation-delay: 0.2s; }
+        .fade-up:nth-child(3) { animation-delay: 0.3s; }
+        .fade-up:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         header h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            margin-bottom: 8px;
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
         }
 
         header .title {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            margin-bottom: 16px;
+            font-size: 1.35rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 500;
+            letter-spacing: -0.01em;
         }
 
         header .tagline {
             color: var(--text-muted);
-            font-size: 1rem;
-            max-width: 400px;
+            font-size: 1.05rem;
+            max-width: 420px;
             margin: 0 auto;
+            line-height: 1.7;
         }
 
         main {
@@ -70,81 +119,174 @@
         }
 
         .about {
-            padding: 0 0 48px;
+            padding: 0 0 64px;
+            text-align: center;
         }
 
         .about-text {
             color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.7;
-            text-align: center;
-            max-width: 540px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 520px;
             margin: 0 auto;
         }
 
         .section-title {
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: 0.75rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            margin-bottom: 24px;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            margin-bottom: 28px;
+            padding-left: 4px;
         }
 
         .projects {
-            padding: 40px 0;
+            padding: 48px 0 80px;
         }
 
         .project-card {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px;
-            margin-bottom: 16px;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
         }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--card-accent);
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:nth-child(1)::after { --card-accent: #3b82f6; }
+        .project-card:nth-child(2)::after { --card-accent: #8b5cf6; }
+        .project-card:nth-child(3)::after { --card-accent: #ec4899; }
 
         .project-card:hover {
-            border-color: #d4d4d4;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transform: translateY(-6px);
+            border-color: rgba(255,255,255,0.12);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.3),
+                0 0 60px rgba(59, 130, 246, 0.1);
         }
 
+        .project-card:hover::after {
+            opacity: 1;
+            width: 5px;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .project-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(59, 130, 246, 0.15);
+            flex-shrink: 0;
+        }
+
+        .project-card:nth-child(1) .project-icon {
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        .project-card:nth-child(2) .project-icon {
+            background: rgba(139, 92, 246, 0.15);
+        }
+
+        .project-card:nth-child(3) .project-icon {
+            background: rgba(236, 72, 153, 0.15);
+        }
+
+        .project-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .project-card:nth-child(1) .project-icon svg { color: #60a5fa; }
+        .project-card:nth-child(2) .project-icon svg { color: #a78bfa; }
+        .project-card:nth-child(3) .project-icon svg { color: #f472b6; }
+
         .project-card h3 {
-            font-size: 1.125rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 2px;
+            letter-spacing: -0.01em;
         }
 
         .project-card p {
             color: var(--text-muted);
-            font-size: 0.9375rem;
-            margin-bottom: 16px;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            padding-left: 60px;
         }
 
         .project-link {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            color: var(--accent);
+            gap: 8px;
+            color: var(--text);
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
-            transition: color 0.2s ease;
+            padding: 10px 18px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin-left: 60px;
         }
 
         .project-link:hover {
-            color: var(--accent-hover);
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
         .project-link svg {
             width: 14px;
             height: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-link:hover svg {
+            transform: translate(2px, -2px);
         }
 
         footer {
             border-top: 1px solid var(--border);
-            padding: 32px 0;
+            padding: 40px 0;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-content {
@@ -155,64 +297,100 @@
         }
 
         .footer-text {
-            color: var(--text-muted);
+            color: var(--text-dim);
             font-size: 0.875rem;
         }
 
         .social-links {
             display: flex;
-            gap: 16px;
+            gap: 20px;
         }
 
         .social-links a {
-            color: var(--text-muted);
-            transition: color 0.2s ease;
+            color: var(--text-dim);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
         }
 
         .social-links a:hover {
             color: var(--text);
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
         }
 
         .social-links svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
         }
 
         @media (max-width: 600px) {
             header {
-                padding: 60px 0 40px;
+                padding: 80px 0 60px;
             }
             header h1 {
-                font-size: 2rem;
+                font-size: 3rem;
+            }
+            header .title {
+                font-size: 1.15rem;
             }
             .project-card {
-                padding: 20px;
+                padding: 24px;
+            }
+            .project-card p,
+            .project-link {
+                padding-left: 0;
+                margin-left: 0;
+            }
+            .project-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .project-icon {
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="bg-pattern"></div>
+
     <header>
         <div class="container">
-            <h1>Ritish</h1>
-            <p class="title">AI-Assisted Product Builder</p>
-            <p class="tagline">Building useful web tools and productivity products with AI</p>
+            <h1 class="fade-up">Ritish</h1>
+            <p class="title fade-up">AI-Assisted Product Builder</p>
+            <p class="tagline fade-up">Building useful web tools and productivity products with AI</p>
         </div>
     </header>
 
     <main>
         <div class="container">
-            <section class="about">
+            <section class="about fade-up">
                 <p class="about-text">I build useful digital products using AI-assisted tools and strong product thinking.<br>Focused on solving real-world problems through clean, functional web experiences.</p>
             </section>
 
             <section class="projects">
-                <h2 class="section-title">Projects</h2>
+                <h2 class="section-title fade-up">Projects</h2>
                 
-                <article class="project-card">
-                    <h3>IdeaFlow</h3>
+                <article class="project-card fade-up">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                            </svg>
+                        </div>
+                        <h3>IdeaFlow</h3>
+                    </div>
                     <p>Productivity dashboard for tasks, notes, and ideas</p>
-                    <a href="#" class="project-link">
+                    <a href="https://ritishpavankumar.github.io/website/" target="_blank" class="project-link">
                         View Project
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
@@ -220,10 +398,35 @@
                     </a>
                 </article>
 
-                <article class="project-card">
-                    <h3>Overlap</h3>
+                <article class="project-card fade-up">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3>Overlap</h3>
+                    </div>
                     <p>Scheduling tool to find common meeting times</p>
-                    <a href="#" class="project-link">
+                    <a href="https://ritishpavankumar.github.io/OVERLAP/" target="_blank" class="project-link">
+                        View Project
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="project-card fade-up">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </div>
+                        <h3>Idea Path</h3>
+                    </div>
+                    <p>AI-powered idea generation and brainstorming tool</p>
+                    <a href="https://idea-path-3c8193a4.base44.app/" target="_blank" class="project-link">
                         View Project
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
